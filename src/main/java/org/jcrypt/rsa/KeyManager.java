@@ -54,14 +54,13 @@ public class KeyManager {
             KeyPair keys = kpg.generateKeyPair();
             RSAPrivateKey privateKey = (RSAPrivateKey) keys.getPrivate();
             RSAPublicKey publicKey = (RSAPublicKey) keys.getPublic();
-            FileOutputStream fpriv = new FileOutputStream("key.prv");
+            FileOutputStream fPriv = new FileOutputStream("key.prv");
             System.out.println(new String(privateKey.getEncoded()));
-            fpriv.write(privateKey.getEncoded());
-            fpriv.close();
-            FileOutputStream fpub = new FileOutputStream("key.pub");
-            fpub.write(publicKey.getEncoded());
-            fpub.close();
-            System.out.println("public key written");
+            fPriv.write(privateKey.getEncoded());
+            fPriv.close();
+            FileOutputStream fPub = new FileOutputStream("key.pub");
+            fPub.write(publicKey.getEncoded());
+            fPub.close();
 
         } catch (Exception e) {
             e.printStackTrace();
