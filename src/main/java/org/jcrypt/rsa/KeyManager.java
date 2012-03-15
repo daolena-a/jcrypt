@@ -30,7 +30,13 @@ public class KeyManager {
     }
 
     public KeyManager(String keyPath, String publicKeyName, String privateKeyName) {
-        this.keyPath = keyPath;
+        if(keyPath.endsWith("/")){
+            this.keyPath = keyPath;
+        }
+        else{
+            this.keyPath = keyPath+"/";
+        }
+
         this.publicKeyName = publicKeyName;
         this.privateKeyName = privateKeyName;
     }
@@ -73,14 +79,11 @@ public class KeyManager {
         RSAPublicKey pubkey = null;
         try {
             KeyFactory factory = KeyFactory.getInstance("RSA");
-            pubfile = new FileInputStream("key.pub");
+            pubfile = new FileInputStream(keyPath+publicKeyName);
             byte[] byte_pub = new byte[pubfile.available()];
             pubfile.read(byte_pub);
-            //     byte_pub = keyEncryptpionManager.decrypter(byte_pub);
             X509EncodedKeySpec pubspec = new X509EncodedKeySpec(byte_pub);
             pubkey = (RSAPublicKey) factory.generatePublic(pubspec);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -100,14 +103,11 @@ public class KeyManager {
         RSAPrivateKey prvkey = null;
         try {
             KeyFactory factory = KeyFactory.getInstance("RSA");
-            prvfile = new FileInputStream("key.prv");
-            byte[] byte_prv = new byte[prvfile.available()];
-            prvfile.read(byte_prv);
-            //      byte_prv = keyEncryptpionManager.decrypter(byte_prv);
-            PKCS8EncodedKeySpec prvspec = new PKCS8EncodedKeySpec(byte_prv);
-            prvkey = (RSAPrivateKey) factory.generatePrivate(prvspec);
-
-
+            prvfile = new FileInputStream(keyPath+privateKeyName);
+            byte[] bytePrv = new byte[prvfile.available()];
+            prvfile.read(bytePrv);
+            PKCS8EncodedKeySpec prvSpec = new PKCS8EncodedKeySpec(bytePrv);
+            prvkey = (RSAPrivateKey) factory.generatePrivate(prvSpec);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
