@@ -15,11 +15,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * Created by IntelliJ IDEA.
- * User: adrien.daolena
- * Date: 15/03/12
- * Time: 11:54
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class KeyManager {
     String keyPath;
@@ -41,7 +37,7 @@ public class KeyManager {
         this.privateKeyName = privateKeyName;
     }
 
-    public void generateKeys() {
+    public final void generateKeys() {
         try {
             File keyPrev = new File(keyPath+"/"+publicKeyName);
             File keyPub = new File(keyPath+"/"+privateKeyName);
@@ -74,7 +70,7 @@ public class KeyManager {
 
     }
 
-    public RSAPublicKey getPublicKey()  {
+    public final RSAPublicKey getPublicKey()  {
         FileInputStream pubfile = null;
         RSAPublicKey pubkey = null;
         try {
@@ -98,7 +94,7 @@ public class KeyManager {
 
     }
 
-    public RSAPrivateKey getPrivateKey()  {
+    public final RSAPrivateKey getPrivateKey()  {
         FileInputStream prvfile = null;
         RSAPrivateKey prvkey = null;
         try {
